@@ -1,0 +1,30 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.hellobike.platform.common.ares.config.AresProperties",
+      "name": "ares",
+      "type": "com.hellobike.platform.common.ares.config.AresProperties"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.hellobike.platform.common.ares.config.AresProperties",
+      "name": "ares.ext-point",
+      "description": "扩展点配置",
+      "type": "com.hellobike.platform.common.ares.config.beans.ExtPointConfig"
+    },
+    {
+      "sourceType": "com.hellobike.platform.common.ares.config.AresProperties",
+      "name": "ares.flow",
+      "description": "流程配置 驱动",
+      "type": "com.hellobike.platform.common.ares.config.beans.FlowConfig"
+    },
+    {
+      "sourceType": "com.hellobike.platform.common.ares.config.AresProperties",
+      "name": "ares.global",
+      "description": "全局配置 appid , 事务等",
+      "type": "com.hellobike.platform.common.ares.config.beans.GlobalConfig"
+    }
+  ]
+}
