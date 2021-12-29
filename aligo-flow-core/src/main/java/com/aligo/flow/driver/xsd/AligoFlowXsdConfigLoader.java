@@ -1,9 +1,6 @@
 package com.aligo.flow.driver.xsd;
 
-import com.aligo.flow.driver.xsd.config.FlowConfig;
-import com.aligo.flow.driver.xsd.config.FlowTemplateConfig;
-import com.aligo.flow.driver.xsd.config.StepConfig;
-import com.aligo.flow.driver.xsd.config.StreamConfig;
+import com.aligo.flow.driver.xsd.config.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.dom4j.Document;
@@ -129,8 +126,8 @@ public class AligoFlowXsdConfigLoader {
         String name = stepElement.attributeValue( "name" );
         stepConfig.setName( name );
         String priorityValue = stepElement.attributeValue( "priority" );
-        //step优先级，默认0
-        Integer priority = StringUtils.isEmpty( priorityValue ) ? 0 : Integer.parseInt( priorityValue );
+        //step优先级
+        Integer priority = StringUtils.isEmpty( priorityValue ) ? null : Integer.parseInt( priorityValue );
         stepConfig.setPriority( priority );
         //是否在事务范围内执行，默认否
         String transactionValue = stepElement.attributeValue( "transaction" );
@@ -157,11 +154,45 @@ public class AligoFlowXsdConfigLoader {
             return null;
         }
         StreamConfig streamConfig = new StreamConfig();
-        //调度类型，默认串行
+        //调度类型
         String type = streamElement.attributeValue( "type" );
-        streamConfig.setType( StringUtils.isEmpty( type ) ? "sequence" : type );
-        //TODO
-
+        streamConfig.setType( type );
+        //优先级
+        String priorityValue = streamElement.attributeValue( "priority" );
+        //step优先级
+        Integer priority = StringUtils.isEmpty( priorityValue ) ? null : Integer.parseInt( priorityValue );
+        streamConfig.setPriority( priority );
+        //事务
+        String transactionValue = streamElement.attributeValue( "transaction" );
+        streamConfig.setTransaction( StringUtils.isEmpty( transactionValue ) ? null : Boolean.parseBoolean( transactionValue ) );
+        //Node集合
+        List<NodeConfig> nodeConfigs = new ArrayList<>();
+        streamConfig.setNodeConfigs( nodeConfigs );
+        List<Element> nodeElements = streamElement.elements();
+        for (Element element : nodeElements) {
+            NodeConfig nodeConfig = buildNodeConfig(element);
+            if (nodeConfig == null) {
+                continue;
+            }
+            nodeConfigs.add( nodeConfig );
+        }
         return streamConfig;
+    }
+
+    private static NodeConfig buildNodeConfig(Element nodeElement) {
+        if (nodeElement == null) {
+            LOGGER.warn( "AligoFlowXsdConfigLoader loading a valid node for node" );
+            return null;
+        }
+        NodeConfig nodeConfig = new NodeConfig();
+        String name = nodeElement.attributeValue( "name" );
+        nodeConfig.setName( name );
+        //是否异步
+        String isAsyncValue = nodeElement.attributeValue( "isAsync" );
+        nodeConfig.setIsAsync( StringUtils.isEmpty( isAsyncValue ) ? null : Boolean.parseBoolean( isAsyncValue ) );
+        //组件bean
+        String executableComponent = nodeElement.attributeValue( "executableComponent" );
+        nodeConfig.setExecutableComponent( executableComponent );
+        return nodeConfig;
     }
 }

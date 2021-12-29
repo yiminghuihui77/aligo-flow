@@ -1,5 +1,6 @@
 package com.aligo.flow.config;
 
+import com.aligo.flow.constant.SupportSchemaEnum;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -15,5 +16,9 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "aligo.flow")
 public class AligoFlowProperties {
 
+    /**
+     * 数据源类型
+     */
+    private String schema = SupportSchemaEnum.XSD.getCode();
 
 }
