@@ -14,7 +14,7 @@ public abstract class FlowDefinition extends AbstractDefinition {
     public abstract void setIdentity(String identity);
 
     public abstract <E extends StepDefinition> void addStepDefinition(E stepDefinition);
-    public abstract <E extends StepDefinition> List<E> getStepDefinition();
+    public abstract <E extends StepDefinition> List<E> getStepDefinitions();
 
     public abstract void reuseWith(String identity);
     public abstract String getReuseIdentity();

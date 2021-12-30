@@ -1,8 +1,13 @@
 package com.aligo.flow.driver.xsd;
 
+import com.aligo.flow.constant.ElemDefinitionBeanEnum;
+import com.aligo.flow.definition.FlowDefinition;
+import com.aligo.flow.definition.StepDefinition;
 import com.aligo.flow.driver.AligoFlowBean;
 import com.aligo.flow.driver.IFlowDriver;
+import com.aligo.flow.driver.xsd.config.FlowConfig;
 import com.aligo.flow.driver.xsd.config.FlowTemplateConfig;
+import com.aligo.flow.driver.xsd.config.StepConfig;
 import com.aligo.flow.exception.AligoFlowLoadException;
 import com.aligo.flow.factory.IDefinitionModelFactory;
 import org.slf4j.Logger;
@@ -11,6 +16,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * xml schema 执行流加载驱动
@@ -69,6 +75,21 @@ public class XsdFlowConfigureDriver implements IFlowDriver<FlowTemplateConfig, A
      */
     @Override
     public AligoFlowBean modeling( IDefinitionModelFactory modelFactory, FlowTemplateConfig sourceData ) throws Exception {
+        //封装数据
+        AligoFlowBean flowBean = new AligoFlowBean();
+        for (FlowConfig flowConfig : sourceData.getFlowConfigs()) {
+            FlowDefinition flowDefinition = (FlowDefinition) ElemDefinitionBeanEnum.FLOW.build();
+            flowDefinition.setName( flowConfig.getName() );
+            flowDefinition.setPriority( -1 );
+            flowDefinition.setIdentity( flowConfig.getIdentifier() );
+            for (StepConfig stepConfig : flowConfig.getStepConfigs()) {
+                StepDefinition stepDefinition = (StepDefinition) ElemDefinitionBeanEnum.STEP.build();
+
+            }
+
+        }
+
+
 
 
 
