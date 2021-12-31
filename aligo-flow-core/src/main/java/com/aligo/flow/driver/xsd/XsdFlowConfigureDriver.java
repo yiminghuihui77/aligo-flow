@@ -1,22 +1,22 @@
 package com.aligo.flow.driver.xsd;
 
 import com.aligo.flow.constant.ElemDefinitionBeanEnum;
+import com.aligo.flow.constant.StreamDispatchTypeEnum;
 import com.aligo.flow.definition.FlowDefinition;
+import com.aligo.flow.definition.NodeDefinition;
 import com.aligo.flow.definition.StepDefinition;
+import com.aligo.flow.definition.StreamDefinition;
 import com.aligo.flow.driver.AligoFlowBean;
 import com.aligo.flow.driver.IFlowDriver;
-import com.aligo.flow.driver.xsd.config.FlowConfig;
-import com.aligo.flow.driver.xsd.config.FlowTemplateConfig;
-import com.aligo.flow.driver.xsd.config.StepConfig;
+import com.aligo.flow.driver.xsd.config.*;
 import com.aligo.flow.exception.AligoFlowLoadException;
-import com.aligo.flow.factory.IDefinitionModelFactory;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import java.io.InputStream;
-import java.util.List;
 
 /**
  * xml schema 执行流加载驱动
@@ -68,31 +68,54 @@ public class XsdFlowConfigureDriver implements IFlowDriver<FlowTemplateConfig, A
 
     /**
      * 将xml的数据源FlowTemplateConfig，封装成同一的AligoFlowBean
-     * @param modelFactory
      * @param sourceData 数据源
      * @return
      * @throws Exception
      */
     @Override
-    public AligoFlowBean modeling( IDefinitionModelFactory modelFactory, FlowTemplateConfig sourceData ) throws Exception {
+    public AligoFlowBean modeling( FlowTemplateConfig sourceData ) throws Exception {
         //封装数据
         AligoFlowBean flowBean = new AligoFlowBean();
         for (FlowConfig flowConfig : sourceData.getFlowConfigs()) {
             FlowDefinition flowDefinition = (FlowDefinition) ElemDefinitionBeanEnum.FLOW.build();
+            //注册flow
+            flowBean.getFlowDefinitions().add( flowDefinition );
             flowDefinition.setName( flowConfig.getName() );
             flowDefinition.setPriority( -1 );
             flowDefinition.setIdentity( flowConfig.getIdentifier() );
             for (StepConfig stepConfig : flowConfig.getStepConfigs()) {
                 StepDefinition stepDefinition = (StepDefinition) ElemDefinitionBeanEnum.STEP.build();
+                //step注册到flow
+                flowDefinition.addStepDefinition( stepDefinition );
+                stepDefinition.setName( stepConfig.getName() );
+                stepDefinition.setPriority( stepConfig.getPriority() );
+                if (stepConfig.getTransaction() != null && stepConfig.getTransaction()) {
+                    stepDefinition.openTransaction();
+                }
+                for (StreamConfig streamConfig : stepConfig.getStreamConfigs()) {
+                    StreamDefinition streamDefinition = (StreamDefinition) ElemDefinitionBeanEnum.STREAM.build();
+                    //stream注册到step
+                    stepDefinition.addStreamDefinition( streamDefinition );
+                    streamDefinition.setPriority( streamConfig.getPriority() );
+                    if (StringUtils.isNotEmpty( streamConfig.getType() )
+                            && StreamDispatchTypeEnum.PARALLEL.equals( StreamDispatchTypeEnum.getByCode(streamConfig.getType()) )) {
+                        streamDefinition.openParallel();
+                    }
+                    for (NodeConfig nodeConfig : streamConfig.getNodeConfigs()) {
+                        NodeDefinition nodeDefinition = (NodeDefinition) ElemDefinitionBeanEnum.NODE.build();
+                        //node注册到stream
+                        streamDefinition.addNodeDefinition( nodeDefinition );
+                        nodeDefinition.setName( nodeConfig.getName() );
+                        if (nodeConfig.getIsAsync() != null && nodeConfig.getIsAsync()) {
+                            nodeDefinition.openAsync();
+                        }
+                        nodeDefinition.binding( nodeConfig.getExecutableComponent() );
+                    }
 
+                }
             }
 
         }
-
-
-
-
-
-        return null;
+        return flowBean;
     }
 }

@@ -18,8 +18,6 @@ public class StreamConfig {
 
     private Integer priority;
 
-    private Boolean transaction;
-
     private List<NodeConfig> nodeConfigs;
 
 }

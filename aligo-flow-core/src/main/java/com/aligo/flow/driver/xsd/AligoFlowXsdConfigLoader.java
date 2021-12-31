@@ -162,9 +162,6 @@ public class AligoFlowXsdConfigLoader {
         //step优先级
         Integer priority = StringUtils.isEmpty( priorityValue ) ? null : Integer.parseInt( priorityValue );
         streamConfig.setPriority( priority );
-        //事务
-        String transactionValue = streamElement.attributeValue( "transaction" );
-        streamConfig.setTransaction( StringUtils.isEmpty( transactionValue ) ? null : Boolean.parseBoolean( transactionValue ) );
         //Node集合
         List<NodeConfig> nodeConfigs = new ArrayList<>();
         streamConfig.setNodeConfigs( nodeConfigs );

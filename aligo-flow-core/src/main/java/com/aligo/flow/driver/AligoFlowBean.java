@@ -15,6 +15,8 @@ import java.util.Set;
 @Data
 public class AligoFlowBean implements IContractBeanSelfCheck {
 
+    //TODO FlowDefinition重写了equals方法  这里不适合用Set，
+    // 否则如果两个执行流配了相同的identity，则会被忽略，而不是报错
     private Set<FlowDefinition> flowDefinitions = new HashSet<>();
 
     @Override
