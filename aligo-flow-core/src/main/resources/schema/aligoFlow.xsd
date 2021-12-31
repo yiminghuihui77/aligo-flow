@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<xs:schema
+        xmlns="http://www.aligo.com/schema/ares/flow"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://www.aligo.com/schema/ares/flow">
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace"/>
+
+    <!--flow struct-->
+    <xs:element name="flow">
+        <xs:complexType>
+            <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                <xs:element ref="step">
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="required">
+            </xs:attribute>
+            <xs:attribute name="identifier" type="xs:string" use="required">
+            </xs:attribute>
+            <xs:attribute name="bizActivity" type="xs:string">
+            </xs:attribute>
+            <xs:attribute name="reuseIdentity" type="xs:string">
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
+
+
+    <!--step struct-->
+    <xs:complexType name="stepType">
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+            <xs:element ref="stream" >
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="required">
+        </xs:attribute>
+        <xs:attribute name="priority" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:integer">
+                    <xs:minInclusive value="0"/>
+                    <xs:maxInclusive value="1000"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="transaction" type="xs:boolean" default="false">
+        </xs:attribute>
+        <xs:attribute name="check" type="xs:boolean" default="false">
+        </xs:attribute>
+    </xs:complexType>
+    <xs:element name="step" type="stepType"/>
+
+
+    <!--component struct-->
+    <xs:complexType name="nodeType">
+        <xs:attribute name="name" type="xs:string">
+        </xs:attribute>
+        <xs:attribute name="executableAtom" type="xs:string">
+        </xs:attribute>
+        <xs:attribute name="fact" type="xs:string">
+        </xs:attribute>
+        <xs:attribute name="async" type="xs:boolean" default="false">
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:element name="node" type="nodeType"/>
+
+
+    <!--stream struct-->
+    <xs:element name="stream">
+        <xs:complexType>
+            <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                <xs:element ref="node"/>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string"/>
+            <xs:attribute name="priority" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:integer">
+                        <xs:minInclusive value="0"/>
+                        <xs:maxInclusive value="1000"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="conditionRule" type="xs:string"/>
+            <xs:attribute name="transaction" type="xs:boolean" default="false">
+            </xs:attribute>
+            <xs:attribute name="type" default="sequence">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="sequence"/>
+                        <xs:enumeration value="parallel"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+
+        </xs:complexType>
+    </xs:element>
+
+
+    <!--AresFlow struct-->
+    <xs:complexType name="aresFlowType">
+        <xs:sequence>
+            <xs:element ref="flow"/>
+        </xs:sequence>
+        <xs:attribute name="version">
+            <xs:simpleType>
+                <xs:restriction base="xs:integer">
+                    <xs:minInclusive value="1"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="name" type="xs:string"/>
+    </xs:complexType>
+    <xs:element name="aresFlow" type="aresFlowType"/>
+
+</xs:schema>

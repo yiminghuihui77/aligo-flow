@@ -1,0 +1,11 @@
+<aresFlow name="flow_demo" version="1"
+  xmlns="http://www.aligo.com/schema/ares/flow"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.aligo.com/schema/ares/flow/aligoFlow.xsd">
+
+
+    <!-- 老供给出库所有场景(确认,申请, 取消), 通配符. -->
+    <flow name="adjust" identifier="OTHER:outbound:hands_on" reuseIdentity="SUPPLY:outbound:hands_on">
+    </flow>
+
+</aresFlow>
