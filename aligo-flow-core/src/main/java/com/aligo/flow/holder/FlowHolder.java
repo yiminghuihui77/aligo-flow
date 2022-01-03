@@ -2,6 +2,7 @@ package com.aligo.flow.holder;
 
 import com.aligo.flow.definition.FlowDefinition;
 import com.aligo.flow.identity.FlowIdentity;
+import com.aligo.flow.util.WildcardUtils;
 import com.google.common.collect.Maps;
 
 import java.util.Map;
@@ -15,7 +16,37 @@ import java.util.Objects;
  **/
 public class FlowHolder<T extends FlowDefinition> implements IAligoHolder{
 
-    private Map<DefaultFlowIdentity, T> flowContainer = Maps.newConcurrentMap();
+    private final Map<DefaultFlowIdentity, T> flowContainer = Maps.newConcurrentMap();
+
+    /**
+     * 根据流程定义，匹配执行流
+     * @param flowIdentity
+     * @return
+     */
+    public T matchFlow4Pattern(FlowIdentity flowIdentity) {
+        T flowDefinition = simpleMatch( flowIdentity );
+        if (flowDefinition != null) {
+            return flowDefinition;
+        }
+
+        for (Map.Entry<DefaultFlowIdentity, T> entry : flowContainer.entrySet()) {
+            if (WildcardUtils.isMatch( flowDefinition.getIdentity(), entry.getKey().getIdentity() )) {
+                return entry.getValue();
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * 根据flowIdentity简单匹配
+     * DefaultFlowIdentity.equals
+     * @param flowIdentity
+     * @return
+     */
+    public T simpleMatch(FlowIdentity flowIdentity) {
+        return flowContainer.get( new DefaultFlowIdentity( flowIdentity ) );
+    }
 
     /**
      * Getter method for property flowContainer.
@@ -56,6 +87,14 @@ public class FlowHolder<T extends FlowDefinition> implements IAligoHolder{
         @Override
         public int hashCode() {
             return Objects.hash( identity, reuseIdentity );
+        }
+
+        public String getIdentity() {
+            return identity;
+        }
+
+        public String getReuseIdentity() {
+            return reuseIdentity;
         }
     }
 }

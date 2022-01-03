@@ -25,7 +25,7 @@ public class AligoFlowBootStrap implements ApplicationListener<ContextRefreshedE
 
     private static final Logger LOGGER = LoggerFactory.getLogger( AligoFlowBootStrap.class );
 
-    private volatile AtomicBoolean isInit = new AtomicBoolean( false );
+    private final AtomicBoolean isInit = new AtomicBoolean( false );
 
 
     @Override

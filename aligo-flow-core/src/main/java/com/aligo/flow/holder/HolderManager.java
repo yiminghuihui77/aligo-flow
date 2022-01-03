@@ -18,7 +18,7 @@ public class HolderManager {
     /**
      * 流程容器
      */
-    private FlowHolder<FlowDefinition> flowHolder = new FlowHolder<>();
+    private final FlowHolder<FlowDefinition> flowHolder = new FlowHolder<>();
 
     /**
      * 初始化
@@ -40,4 +40,7 @@ public class HolderManager {
         flowHolder.getFlowContainer().put( new FlowHolder.DefaultFlowIdentity( flowIdentity ), flowDefinition );
     }
 
+    public FlowHolder<FlowDefinition> getFlowHolder() {
+        return flowHolder;
+    }
 }

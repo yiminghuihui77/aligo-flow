@@ -16,7 +16,7 @@ public interface IExecutableComponent<E extends ParamContext> {
      * 是否执行
      * @return
      */
-    default boolean condition() {
+    default boolean condition(E context) {
         return true;
     }
 

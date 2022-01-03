@@ -1,12 +1,10 @@
 package com.aligo.flow.initializer;
 
 import com.aligo.flow.config.FlowDriverConfig;
-import com.aligo.flow.definition.FlowDefinition;
 import com.aligo.flow.driver.AligoFlowBean;
 import com.aligo.flow.driver.IFlowDriver;
 import com.aligo.flow.exception.AligoFlowInitException;
 import com.aligo.flow.holder.HolderManager;
-import com.aligo.flow.identity.FlowIdentity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.event.ApplicationContextEvent;
