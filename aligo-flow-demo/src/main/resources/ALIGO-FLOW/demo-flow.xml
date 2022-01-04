@@ -4,8 +4,26 @@
   xsi:schemaLocation="http://www.aligo.com/schema/ares/flow/aligoFlow.xsd">
 
 
-    <!-- 老供给出库所有场景(确认,申请, 取消), 通配符. -->
-    <flow name="adjust" identifier="OTHER:outbound:hands_on" reuseIdentity="SUPPLY:outbound:hands_on">
+    <flow name="adjust" identifier="LEASEEV_BIKE:outbound:*">
+        <step name="PARAM_VALID" priority="0" check="true">
+            <stream priority="1">
+                <node executableAtom="IdempotentValidator"/>
+                <node executableAtom="WarehouseInfoValidator"/>
+            </stream>
+        </step>
+
+
+        <step name="BIZ_PROCESSOR" priority="3" >
+            <stream priority="1">
+                <node executableAtom="AdjustInventoryProcessor"/>
+            </stream>
+        </step>
+
+        <step name="AFTER_BIZ_PROCESSOR" priority="4">
+            <stream priority="1">
+                <node executableAtom="StockChangeMessageProcessor"/>
+            </stream>
+        </step>
     </flow>
 
 </aresFlow>

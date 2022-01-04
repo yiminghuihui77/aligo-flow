@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: aligo-flow-demo
+
+server:
+  port: 8888
