@@ -52,7 +52,7 @@
     <xs:complexType name="nodeType">
         <xs:attribute name="name" type="xs:string">
         </xs:attribute>
-        <xs:attribute name="executableAtom" type="xs:string">
+        <xs:attribute name="executableComponent" type="xs:string">
         </xs:attribute>
         <xs:attribute name="fact" type="xs:string">
         </xs:attribute>

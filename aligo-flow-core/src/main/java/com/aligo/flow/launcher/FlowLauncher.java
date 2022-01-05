@@ -42,7 +42,7 @@ public class FlowLauncher<E extends FlowIdentity, C extends FlowContext> extends
         }
         LOGGER.info( "matched flow: {}", flow.getIdentity() );
         //TODO ?  何用
-        flowContext.setAttribute( FlowIdentity.class, flowIdentity );
+//        flowContext.setAttribute( FlowIdentity.class, flowIdentity );
 
         try {
             //TODO 使用actuator执行

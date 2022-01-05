@@ -1,5 +1,6 @@
 package com.aligo.flow.definition;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ public class Stream extends StreamDefinition{
 
     private boolean isOpenParallel = false;
 
-    private List<NodeDefinition> nodeDefinitions;
+    private List<NodeDefinition> nodeDefinitions = new ArrayList<>();
 
     @Override
     public void openParallel() {

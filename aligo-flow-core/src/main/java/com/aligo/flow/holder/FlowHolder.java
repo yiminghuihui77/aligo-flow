@@ -30,7 +30,7 @@ public class FlowHolder<T extends FlowDefinition> implements IAligoHolder{
         }
 
         for (Map.Entry<DefaultFlowIdentity, T> entry : flowContainer.entrySet()) {
-            if (WildcardUtils.isMatch( flowDefinition.getIdentity(), entry.getKey().getIdentity() )) {
+            if (WildcardUtils.isMatch( flowIdentity.getIdentity(), entry.getKey().getIdentity() )) {
                 return entry.getValue();
             }
         }

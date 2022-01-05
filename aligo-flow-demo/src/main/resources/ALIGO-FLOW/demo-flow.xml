@@ -7,21 +7,21 @@
     <flow name="adjust" identifier="LEASEEV_BIKE:outbound:*">
         <step name="PARAM_VALID" priority="0" check="true">
             <stream priority="1">
-                <node executableAtom="IdempotentValidator"/>
-                <node executableAtom="WarehouseInfoValidator"/>
+                <node executableComponent="IdempotentValidator"/>
+                <node executableComponent="WarehouseInfoValidator"/>
             </stream>
         </step>
 
 
         <step name="BIZ_PROCESSOR" priority="3" >
             <stream priority="1">
-                <node executableAtom="AdjustInventoryProcessor"/>
+                <node executableComponent="AdjustInventoryProcessor"/>
             </stream>
         </step>
 
         <step name="AFTER_BIZ_PROCESSOR" priority="4">
             <stream priority="1">
-                <node executableAtom="StockChangeMessageProcessor"/>
+                <node executableComponent="StockChangeMessageProcessor"/>
             </stream>
         </step>
     </flow>

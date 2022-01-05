@@ -17,6 +17,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class FlowDemoController {
 
 
+    /**
+     * {
+     *     "adjustNum":10,
+     *     "bizLine":"LEASEEV_BIKE",
+     *     "operateType":"apply",
+     *     "operatorId":"huihui",
+     *     "operatorName":"灰灰",
+     *     "sceneType":"outbound",
+     *     "skuCode":"1040112",
+     *     "whAreaSn":"whArea001",
+     *     "whSn":"wh001"
+     * }
+     * @param req
+     * @return
+     * @throws Exception
+     */
     @RequestMapping("/adjustStock")
     public String adjustStock( @RequestBody AdjustStockReq req ) throws Exception {
 
