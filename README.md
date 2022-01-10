@@ -27,7 +27,7 @@ aligo:
 ```
 
 3. resource目录下创建ALIGO-FLO目录，并配置执行流.xml
-```xml
+```xml 
 <aresFlow name="flow_demo" version="1"
   xmlns="http://www.aligo.com/schema/ares/flow"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
