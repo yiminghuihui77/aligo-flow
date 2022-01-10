@@ -94,8 +94,8 @@
     </xs:element>
 
 
-    <!--AresFlow struct-->
-    <xs:complexType name="aresFlowType">
+    <!--AligoFlow struct-->
+    <xs:complexType name="aligoFlowType">
         <xs:sequence>
             <xs:element ref="flow"/>
         </xs:sequence>
@@ -108,6 +108,6 @@
         </xs:attribute>
         <xs:attribute name="name" type="xs:string"/>
     </xs:complexType>
-    <xs:element name="aresFlow" type="aresFlowType"/>
+    <xs:element name="aligoFlow" type="aligoFlowType"/>
 
 </xs:schema>

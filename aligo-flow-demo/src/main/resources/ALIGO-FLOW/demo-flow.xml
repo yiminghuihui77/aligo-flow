@@ -1,4 +1,4 @@
-<aresFlow name="flow_demo" version="1"
+<aligoFlow name="flow_demo" version="1"
   xmlns="http://www.aligo.com/schema/ares/flow"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.aligo.com/schema/ares/flow/aligoFlow.xsd">
@@ -26,4 +26,4 @@
         </step>
     </flow>
 
-</aresFlow>
+</aligoFlow>

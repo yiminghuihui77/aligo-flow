@@ -4,3 +4,17 @@ spring:
 
 server:
   port: 8888
+
+
+aligo:
+  flow:
+    #数据源类型
+    schema: xsd
+  global:
+    #应用id
+    appId: AligoFlowDemoApp
+    #指定事务模板
+    transactionTemplate: flowTransactionTemplate
+
+
+

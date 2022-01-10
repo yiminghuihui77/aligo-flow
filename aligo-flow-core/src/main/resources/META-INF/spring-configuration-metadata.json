@@ -2,29 +2,41 @@
   "hints": [],
   "groups": [
     {
-      "sourceType": "com.hellobike.platform.common.ares.config.AresProperties",
-      "name": "ares",
-      "type": "com.hellobike.platform.common.ares.config.AresProperties"
+      "sourceType": "com.aligo.flow.config.AligoFlowProperties",
+      "name": "aligo",
+      "type": "com.aligo.flow.config.AligoFlowProperties"
     }
   ],
   "properties": [
     {
-      "sourceType": "com.hellobike.platform.common.ares.config.AresProperties",
-      "name": "ares.ext-point",
-      "description": "扩展点配置",
-      "type": "com.hellobike.platform.common.ares.config.beans.ExtPointConfig"
-    },
-    {
-      "sourceType": "com.hellobike.platform.common.ares.config.AresProperties",
-      "name": "ares.flow",
+      "sourceType": "com.aligo.flow.config.AligoFlowProperties",
+      "name": "aligo.flow",
       "description": "流程配置 驱动",
-      "type": "com.hellobike.platform.common.ares.config.beans.FlowConfig"
+      "type": "com.aligo.flow.config.beans.FlowCommonConfig"
     },
     {
-      "sourceType": "com.hellobike.platform.common.ares.config.AresProperties",
-      "name": "ares.global",
+      "sourceType": "com.aligo.flow.config.beans.FlowCommonConfig",
+      "name": "aligo.flow.schema",
+      "description": "驱动源",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.aligo.flow.config.AligoFlowProperties",
+      "name": "aligo.global",
       "description": "全局配置 appid , 事务等",
-      "type": "com.hellobike.platform.common.ares.config.beans.GlobalConfig"
+      "type": "com.aligo.flow.config.beans.GlobalConfig"
+    },
+    {
+      "sourceType": "com.aligo.flow.config.beans.GlobalConfig",
+      "name": "aligo.global.appId",
+      "description": "appId",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.aligo.flow.config.beans.GlobalConfig",
+      "name": "aligo.global.transactionTemplate",
+      "description": "transactionTemplateBeanName",
+      "type": "java.lang.String"
     }
   ]
 }
