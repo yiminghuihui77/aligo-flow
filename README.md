@@ -7,20 +7,20 @@
 * 支持异步执行、并行执行、事务模板
 
 ## 使用步骤
-详情参考aligo-flow-demo
+详情参考aligo-flow-demo 
 
 1. 前提的环境条件  
    JDK版本：1.8+  
    Spring上下文  
 
 2. application.yml上的基础配置
-```json
+```json 
 aligo:
   flow:
-    #数据源类型
+    # 数据源类型
     schema: xsd
   global:
-    #应用id
+    # 应用id
     appId: AligoFlowDemoApp
     #指定事务模板
     transactionTemplate: flowTransactionTemplate
