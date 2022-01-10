@@ -1,6 +1,6 @@
 package com.aligo.flow.initializer;
 
-import com.aligo.flow.config.FlowDriverConfig;
+import com.aligo.flow.config.beans.FlowDriverConfig;
 import com.aligo.flow.driver.AligoFlowBean;
 import com.aligo.flow.driver.IFlowDriver;
 import com.aligo.flow.exception.AligoFlowInitException;

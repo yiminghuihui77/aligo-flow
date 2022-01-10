@@ -1,5 +1,6 @@
 package com.aligo.flow.actuator;
 
+import com.aligo.flow.config.beans.FlowTransactionConfig;
 import com.aligo.flow.core.FlowContext;
 import com.aligo.flow.definition.StepDefinition;
 import com.aligo.flow.exception.FlowExecuteException;
@@ -19,6 +20,8 @@ public class StepActuator extends AbstractActuator<StepDefinition, FlowContext> 
 
     @Resource
     private StreamActuator streamActuator;
+    @Resource
+    private FlowTransactionConfig flowTransactionConfig;
 
 
     @Override
@@ -37,7 +40,13 @@ public class StepActuator extends AbstractActuator<StepDefinition, FlowContext> 
             //判断step的isOpenTransaction属性，是否在一个事务内执行
             if (definition.isOpenTransaction()) {
                 //获取事务模板
-                //TODO
+                if (flowTransactionConfig.getTransactionTemplate() == null) {
+                    throw new FlowExecuteException("StepActuator exec : " + definition.getName() + " with no transactionTemplate");
+                }
+                flowTransactionConfig.getTransactionTemplate().execute( transactionStatus -> {
+                    runnable.run();
+                    return Boolean.TRUE;
+                } );
 
 
             } else {
