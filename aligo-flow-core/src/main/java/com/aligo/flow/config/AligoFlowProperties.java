@@ -20,11 +20,11 @@ public class AligoFlowProperties {
     /**
      * 全局配置：appId,事务模板等
      */
-    private GlobalConfig globalConfig;
+    private GlobalConfig globalConfig = new GlobalConfig();
 
     /**
      * 流程相关的配置：数据源等
      */
-    private FlowCommonConfig flowCommonConfig;
+    private FlowCommonConfig flowCommonConfig = new FlowCommonConfig();
 
 }

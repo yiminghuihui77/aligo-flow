@@ -14,7 +14,7 @@ aligo:
     #应用id
     appId: AligoFlowDemoApp
     #指定事务模板
-    transactionTemplate: flowTransactionTemplate
+#    transactionTemplate: flowTransactionTemplate
 
 
 
