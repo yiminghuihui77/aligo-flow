@@ -1,6 +1,7 @@
 package com.aligo.flow.initializer;
 
 import com.aligo.flow.holder.HolderManager;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.event.ApplicationContextEvent;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +19,7 @@ public class HolderInitializer implements Initializer{
 
 
     @Override
-    public <E extends ApplicationContextEvent> void initialize( E event ) {
+    public <E extends ApplicationContext> void initialize( E event ) {
         holderManager.initialize();
     }
 

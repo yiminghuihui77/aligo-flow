@@ -1,5 +1,8 @@
 package com.aligo.flow.annotation;
 
+import com.aligo.flow.config.AligoFlowMarkerConfiguration;
+import org.springframework.context.annotation.Import;
+
 import java.lang.annotation.*;
 
 /**
@@ -11,5 +14,6 @@ import java.lang.annotation.*;
 @Target( ElementType.TYPE )
 @Retention( RetentionPolicy.RUNTIME )
 @Documented
+@Import(AligoFlowMarkerConfiguration.class)
 public @interface EnableAligoFlow {
 }

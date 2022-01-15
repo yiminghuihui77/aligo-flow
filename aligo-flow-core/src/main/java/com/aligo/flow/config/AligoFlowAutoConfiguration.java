@@ -1,5 +1,6 @@
 package com.aligo.flow.config;
 
+import com.aligo.flow.AligoFlowBootStrap;
 import com.aligo.flow.config.beans.FlowDriverConfig;
 import com.aligo.flow.config.beans.FlowTransactionConfig;
 import com.aligo.flow.constant.SupportSchemaEnum;
@@ -8,10 +9,11 @@ import com.aligo.flow.exception.AligoFlowInitException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.annotation.Resource;
@@ -23,12 +25,16 @@ import javax.annotation.Resource;
  * @create 2021-12-29 11:27 下午
  **/
 @Configuration
+@ConditionalOnBean(AligoFlowMarkerConfiguration.Marker.class)
+@Import( AligoFlowInitializerConfiguration.class )
 public class AligoFlowAutoConfiguration {
 
     private static final Logger LOGGER = LoggerFactory.getLogger( AligoFlowAutoConfiguration.class );
 
     @Resource
     private AligoFlowProperties aligoFlowProperties;
+
+
 
     /**
      * 数据源驱动
@@ -55,7 +61,7 @@ public class AligoFlowAutoConfiguration {
      * @return
      */
     @Bean
-    public FlowTransactionConfig flowTransactionConfig(@Autowired ApplicationContext applicationContext) {
+    public FlowTransactionConfig flowTransactionConfig( ApplicationContext applicationContext) {
         FlowTransactionConfig transactionConfig = new FlowTransactionConfig();
         transactionConfig.setTransactionTemplateBeanName( aligoFlowProperties.getGlobalConfig().getTransactionTemplateBeanName() );
         //如果指定了事务模板，则必须赋值
@@ -69,6 +75,16 @@ public class AligoFlowAutoConfiguration {
             transactionConfig.setTransactionTemplate( (TransactionTemplate) transactionBean );
         }
         return transactionConfig;
+    }
+
+    /**
+     * aligo-flow核心启动类，用于初始化上下文
+     * @param context
+     * @return
+     */
+    @Bean
+    public AligoFlowBootStrap aligoFlowBootStrap( ApplicationContext context) {
+        return new AligoFlowBootStrap(context);
     }
 
 

@@ -1,6 +1,6 @@
 package com.aligo.flow.initializer;
 
-import org.springframework.context.event.ApplicationContextEvent;
+import org.springframework.context.ApplicationContext;
 
 /**
  * 初始化处理器
@@ -10,7 +10,7 @@ import org.springframework.context.event.ApplicationContextEvent;
  **/
 public interface Initializer {
 
-    <E extends ApplicationContextEvent> void initialize(E event);
+    <E extends ApplicationContext> void initialize( E context);
 
     /**
      * 优先级

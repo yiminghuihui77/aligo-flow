@@ -5,6 +5,7 @@ import com.aligo.flow.initializer.Initializer;
 import com.aligo.flow.util.SpringContextProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -20,26 +21,32 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * @author minghui.y
  * @create 2021-12-26 9:28 下午
  **/
-@Component
-public class AligoFlowBootStrap implements ApplicationListener<ContextRefreshedEvent> {
+public class AligoFlowBootStrap  {
 
     private static final Logger LOGGER = LoggerFactory.getLogger( AligoFlowBootStrap.class );
 
     private final AtomicBoolean isInit = new AtomicBoolean( false );
+    private ApplicationContext context;
+
+    public AligoFlowBootStrap() {
+    }
+
+    public AligoFlowBootStrap(ApplicationContext context) {
+        this.context = context;
+    }
 
 
-    @Override
-    public void onApplicationEvent( ContextRefreshedEvent event ) {
+    public void flowContextInitialized( ) {
         if (isInit.compareAndSet( false, true )) {
-            start( event );
+            start( context );
         }
     }
 
     /**
      * alig-flow核心启动类
-     * @param event
+     * @param context
      */
-    private void start(ContextRefreshedEvent event) {
+    private void start( ApplicationContext context ) {
         LOGGER.info( "aligo-flow bootstrap start..." );
 
         //获取所有的Initializer bean
@@ -57,7 +64,7 @@ public class AligoFlowBootStrap implements ApplicationListener<ContextRefreshedE
             String initializerName = initializer.getClass().getSimpleName();
             LOGGER.info( "initializer: {} start init...", initializerName );
             try {
-                initializer.initialize( event );
+                initializer.initialize( context );
             } catch (Exception e) {
                 LOGGER.error( "initializer: {} fail to init, because of :{}", initializerName, e );
                 throw new AligoFlowInitException("Initializer: " + initializerName + "fail to init", e);

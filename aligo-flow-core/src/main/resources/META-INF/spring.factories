@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  org.springframework.cloud.netflix.eureka.server.EurekaServerAutoConfiguration
+  com.aligo.flow.config.AligoFlowAutoConfiguration

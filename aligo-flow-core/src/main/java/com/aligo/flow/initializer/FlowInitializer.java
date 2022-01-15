@@ -7,6 +7,7 @@ import com.aligo.flow.exception.AligoFlowInitException;
 import com.aligo.flow.holder.HolderManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.event.ApplicationContextEvent;
 import org.springframework.stereotype.Component;
 
@@ -30,8 +31,9 @@ public class FlowInitializer implements Initializer {
     @Resource
     private HolderManager holderManager;
 
+
     @Override
-    public <E extends ApplicationContextEvent> void initialize( E event ) {
+    public <E extends ApplicationContext> void initialize( E context ) {
         LOGGER.info( "FlowInitializer start to initialize..." );
 
         IFlowDriver flowDriver = flowDriverConfig.getDriver();
@@ -59,8 +61,6 @@ public class FlowInitializer implements Initializer {
             LOGGER.error( "FlowInitializer error with: {}", e.getMessage() );
             throw new AligoFlowInitException("FlowInitializer 驱动加载数据源失败：" + e.getMessage());
         }
-
-
     }
 
     @Override
