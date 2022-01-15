@@ -56,18 +56,11 @@ public class FlowDemoController {
      * @return
      */
     private FlowIdentity buildIdentity(AdjustStockReq req) {
-
-        StringBuilder builder = new StringBuilder();
-        builder.append( req.getBizLine() ).append( ":" )
-                .append( req.getSceneType() ).append( ":" )
-                .append( req.getOperateType() );
-
-        return new FlowIdentity() {
-            @Override
-            public String getIdentity() {
-                return builder.toString();
-            }
-        };
+        return FlowIdentity.builder()
+                .idSlice( req.getBizLine() )
+                .idSlice( req.getSceneType() )
+                .idSlice( req.getOperateType() )
+                .build();
     }
 
 }

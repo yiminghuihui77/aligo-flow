@@ -14,4 +14,12 @@ public interface FlowIdentity {
      */
     String getIdentity();
 
+    /**
+     * 流程标识构建器
+     * @return
+     */
+    static FlowIdentityBuilder  builder() {
+        return new FlowIdentityBuilder();
+    }
+
 }
