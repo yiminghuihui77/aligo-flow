@@ -11,7 +11,7 @@
 
 1. 前提的环境条件  
    JDK版本：1.8+  
-   Spring上下文  
+   SpringBoot上下文  
 
 2. application.yml上的基础配置
 ```json 
