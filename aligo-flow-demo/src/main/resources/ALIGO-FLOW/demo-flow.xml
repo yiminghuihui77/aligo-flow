@@ -13,9 +13,11 @@
         </step>
 
 
-        <step name="BIZ_PROCESSOR" priority="3" >
+        <!--核心领域能力，变更数据库，整体事务-->
+        <step name="BIZ_PROCESSOR" priority="3" transaction="true" >
             <stream priority="1">
                 <node executableComponent="AdjustInventoryProcessor"/>
+                <node executableComponent="ChangeAssetStatusProcessor"/>
             </stream>
         </step>
 

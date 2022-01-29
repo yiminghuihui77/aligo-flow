@@ -64,6 +64,9 @@ public class AligoFlowAutoConfiguration {
     public FlowTransactionConfig flowTransactionConfig( ApplicationContext applicationContext) {
         FlowTransactionConfig transactionConfig = new FlowTransactionConfig();
         transactionConfig.setTransactionTemplateBeanName( aligoFlowProperties.getGlobalConfig().getTransactionTemplateBeanName() );
+        // 从Spring上下文中获取事务模板bean
+        transactionConfig.setTransactionTemplate( applicationContext.getBean( TransactionTemplate.class ) );
+
         //如果指定了事务模板，则必须赋值
         if (StringUtils.isNotEmpty(aligoFlowProperties.getGlobalConfig().getTransactionTemplateBeanName())) {
             //指定事务模板

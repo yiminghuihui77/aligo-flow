@@ -21,13 +21,14 @@ public class FlowDemoController {
      * {
      *     "adjustNum":10,
      *     "bizLine":"LEASEEV_BIKE",
-     *     "operateType":"apply",
+     *     "operateType":"hands_on",
      *     "operatorId":"huihui",
      *     "operatorName":"灰灰",
      *     "sceneType":"outbound",
      *     "skuCode":"1040112",
      *     "whAreaSn":"whArea001",
-     *     "whSn":"wh001"
+     *     "whSn":"wh001",
+     *     "assetList":["10400123", "10400124"]
      * }
      * @param req
      * @return

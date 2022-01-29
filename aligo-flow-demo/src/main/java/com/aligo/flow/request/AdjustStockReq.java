@@ -1,6 +1,7 @@
 package com.aligo.flow.request;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * 调整库存请求
@@ -48,6 +49,11 @@ public class AdjustStockReq implements Serializable {
     private Integer adjustNum;
 
     /**
+     * 资产明显
+     */
+    private List<String> assetList;
+
+    /**
      * 操作人id
      */
     private String operatorId;
@@ -57,7 +63,13 @@ public class AdjustStockReq implements Serializable {
     private String operatorName;
 
 
+    public List<String> getAssetList() {
+        return assetList;
+    }
 
+    public void setAssetList( List<String> assetList ) {
+        this.assetList = assetList;
+    }
 
     /**
      * Getter method for property bizLine.
