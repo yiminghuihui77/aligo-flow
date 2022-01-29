@@ -24,7 +24,7 @@ import javax.annotation.Resource;
  * @author minghui.y
  * @create 2021-12-29 11:27 下午
  **/
-@Configuration
+@Configuration(proxyBeanMethods = false)
 @ConditionalOnBean(AligoFlowMarkerConfiguration.Marker.class)
 @Import( AligoFlowInitializerConfiguration.class )
 public class AligoFlowAutoConfiguration {

@@ -43,7 +43,7 @@ public class AligoFlowBootStrap  {
     }
 
     /**
-     * alig-flow核心启动类
+     * aligo-flow核心启动类
      * @param context
      */
     private void start( ApplicationContext context ) {
